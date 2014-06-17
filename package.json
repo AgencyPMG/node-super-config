@@ -1,8 +1,8 @@
 {
-  "name": "NodeConfig",
+  "name": "node-config",
   "version": "0.0.1",
   "description": "A light-weight config for nodeJS",
-  "main": "lib",
+  "main": "index.js",
   "scripts": {
     "test": "mocha test"
   },
