@@ -1,6 +1,5 @@
 {
   "name": "simple-config",
-  "repository": "https://github.com/AgencyPMG/simple-config",
   "version": "0.0.2",
   "description": "A light-weight config for nodeJS",
   "main": "index.js",
@@ -8,8 +7,16 @@
     "test": "mocha test"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "underscore": "^1.6.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AgencyPMG/simple-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AgencyPMG/simple-config/issues"
+  },
+  "homepage": "https://github.com/AgencyPMG/simple-config"
 }
