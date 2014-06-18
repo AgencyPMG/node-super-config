@@ -7,17 +7,14 @@ var Config = function() {
 
 }
 
+/**
+ * Loads a config file or multiple files
+ * @param configFiles {string|array}
+ * @return {void}
+ */
 Config.prototype.loadConfig = function(configFiles) {
-    if (!configFiles) {
-        throw 'Config Files are empty, this is a required field';
-    }
-
-    if(typeof configFiles === 'string') {
+    if (typeof configFiles === 'string') {
         configFiles = [configFiles];
-    }
-
-    if(configFiles.length == 0) {
-        return;
     }
 
     var config = {};
@@ -85,7 +82,7 @@ Config.prototype.get = function(key, defaultValue)
 Config.prototype.set = function(key, value, extend)
 {
     if (typeof extend === 'undefined') extend = false;
-    var comps = key.split(".");
+    var comps = key.split('.');
     var obj = this;
     for(var index in comps) {
         if (typeof obj[comps[index]] === 'undefined') {
