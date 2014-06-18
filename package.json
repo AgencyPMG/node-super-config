@@ -1,6 +1,6 @@
 {
   "name": "simple-config",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A light-weight config for nodeJS",
   "main": "index.js",
   "scripts": {
