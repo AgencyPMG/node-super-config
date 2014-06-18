@@ -1,22 +1,22 @@
 {
   "name": "simple-config",
   "version": "0.0.4",
-  "description": "A light-weight config for nodeJS",
+  "description": "A light-weight config for Node",
   "main": "index.js",
   "scripts": {
     "test": "mocha test"
   },
-  "author": "",
+  "author": "Chris Alvares <chris.alvares@pmg.co>",
   "license": "MIT",
   "dependencies": {
     "underscore": "^1.6.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AgencyPMG/simple-config.git"
+    "url": "https://github.com/AgencyPMG/node-simple-config.git"
   },
   "bugs": {
-    "url": "https://github.com/AgencyPMG/simple-config/issues"
+    "url": "https://github.com/AgencyPMG/node-simple-config/issues"
   },
-  "homepage": "https://github.com/AgencyPMG/simple-config"
+  "homepage": "https://github.com/AgencyPMG/node-simple-config"
 }
