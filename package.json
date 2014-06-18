@@ -1,5 +1,5 @@
 {
-  "name": "simple-config",
+  "name": "super-config",
   "version": "0.0.4",
   "description": "A light-weight config for Node",
   "main": "index.js",
