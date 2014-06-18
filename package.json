@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AgencyPMG/node-simple-config.git"
+    "url": "https://github.com/AgencyPMG/node-super-config.git"
   },
   "bugs": {
-    "url": "https://github.com/AgencyPMG/node-simple-config/issues"
+    "url": "https://github.com/AgencyPMG/node-super-config/issues"
   },
-  "homepage": "https://github.com/AgencyPMG/node-simple-config"
+  "homepage": "https://github.com/AgencyPMG/node-super-config"
 }
