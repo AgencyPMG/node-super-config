@@ -4,12 +4,20 @@
   "description": "A light-weight config for Node",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "istanbul cover _mocha -- -R spec"
   },
   "author": "Chris Alvares <chris.alvares@pmg.co>",
   "license": "MIT",
   "dependencies": {
     "underscore": "^1.6.0"
+  },
+  "devDependencies": {
+    "karma": "latest",
+    "karma-mocha": "latest",
+    "karma-requirejs": "latest",
+    "chai": "latest",
+    "karma-chai": "latest",
+    "istanbul": "latest"
   },
   "repository": {
     "type": "git",
