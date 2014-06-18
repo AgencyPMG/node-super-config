@@ -15,25 +15,27 @@ Config.prototype.loadConfig = function(configFiles) {
         throw 'Config Files are empty, this is a required field';
     }
 
+    if(typeof configFiles === 'string') {
+        configFiles = [configFiles];
+    }
+
     if(configFiles.length == 0) {
         return;
     }
 
-    var config = require(configFiles[0]);
-    for(var i=1; i<configFiles.length;i++) {
+    var config = {};
+    for(var i=0; i<configFiles.length;i++) {
         try {
             var local = require(configFiles[i]);
             config = _.extend(config, local);
         } catch(e) {
-            console.log('There was an error loading file: ' + configFiles[i]);
-            console.log(e);
+            console.log('There was an error loading file: ' + configFiles[i], e);
         }
     }
 
     for(var key in config) {
         this.set(key, config[key]);
     }
-
 }
 
 /**
