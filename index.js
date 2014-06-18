@@ -3,10 +3,7 @@
  */
 var _ = require('underscore');
 
-/**
- * @param configFiles {array} Required list of config files
- */
-var Config = function(configFiles) {
+var Config = function() {
 
 }
 
