@@ -73,15 +73,14 @@ Config.prototype.get = function(key, defaultValue)
 }
 
 /*
- * This can set variables inside the Koddi object, the third parameter, extends will merge the object instead of overriding it
+ * This can set variables inside the config object
  * @todo implement the extend parameter
  * @since 0.0.1
  * @access public
  * returns void
  */
-Config.prototype.set = function(key, value, extend)
+Config.prototype.set = function(key, value)
 {
-    if (typeof extend === 'undefined') extend = false;
     var comps = key.split('.');
     var obj = this;
     for(var index in comps) {
