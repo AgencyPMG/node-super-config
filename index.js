@@ -66,6 +66,11 @@ Config.prototype.connectDatabase = function(databaseSetup)
 */
 Config.prototype.get = function(key, defaultValue)
 {
+    if (!this.isKeyFullString(key)) {
+        console.log('Cannot get value. "key" must be of type of string and non-empty');
+        return;
+    }
+
     return _.reduce(key.split("."), function(result, partOfKey) {
         if (result[partOfKey]) {
             return result[partOfKey];
@@ -75,7 +80,7 @@ Config.prototype.get = function(key, defaultValue)
     }, this);
 }
 
-/*
+/**
  * This can set variables inside the config object
  * @todo implement the extend parameter
  * @since 0.0.1
@@ -84,6 +89,11 @@ Config.prototype.get = function(key, defaultValue)
  */
 Config.prototype.set = function(key, value)
 {
+    if (!this.isKeyFullString(key)) {
+        console.log('Cannot set value. "key" must be of type of string and non-empty');
+        return;
+    }
+
     var keyParts = key.split(".");
     var baseKey = keyParts.pop();
 
@@ -97,6 +107,16 @@ Config.prototype.set = function(key, value)
     root[baseKey] = value;
 }
 
+/**
+ * Determines if a key is both a string and not empty
+ * @since  0.0.5
+ * @param  key {mixed}
+ * @return boolean true if the string is not empty; false otherwise
+ */
+Config.prototype.isKeyFullString = function(key)
+{
+    return typeof key == 'string' && '' !== key;
+}
 
 /* Creates a singleton instance */
 module.exports = new Config();
