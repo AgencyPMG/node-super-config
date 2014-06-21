@@ -67,7 +67,7 @@ Config.prototype.connectDatabase = function(databaseSetup)
 */
 Config.prototype.get = function(key, defaultValue)
 {
-    defaultValue = typeof defaultValue != 'undefiend' ? defaultValue : this.DEFAULT_VALUE;
+    defaultValue = typeof defaultValue != 'undefined' ? defaultValue : this.DEFAULT_VALUE;
 
     if (!this.isKeyFullString(key)) {
         console.log('Cannot get value. "key" must be of type of string and non-empty');
