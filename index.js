@@ -70,7 +70,7 @@ Config.prototype.get = function(key, defaultValue)
         if (result[partOfKey]) {
             return result[partOfKey];
         } else {
-            return typeof defaultValue == 'undefined' ? defaultValue : '';
+            return typeof defaultValue != 'undefined' ? defaultValue : '';
         }
     }, this);
 }
