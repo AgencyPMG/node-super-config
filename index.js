@@ -18,17 +18,26 @@ Config.prototype.loadConfig = function(configFiles) {
     }
 
     var config = {};
-    for(var i=0; i<configFiles.length;i++) {
-        try {
-            var local = require(configFiles[i]);
-            config = _.extend(config, local);
-        } catch(e) {
-            console.log('There was an error loading file: ' + configFiles[i], e);
-        }
+    for (var index in configFiles) {
+        config = _.extend(config, this.loadSingleConfigFile(configFiles[index]));
     }
 
     for(var key in config) {
         this.set(key, config[key]);
+    }
+}
+
+/**
+ * Loads a given configuration file and returns an object
+ * representing that file
+ * @param filename {string} the file to load
+ */
+Config.prototype.loadSingleConfigFile = function(filename)
+{
+    try {
+        return require(filename);
+    } catch(e) {
+        console.log('There was an error loading file: ' + filename, e);
     }
 }
 
@@ -57,19 +66,13 @@ Config.prototype.connectDatabase = function(databaseSetup)
 */
 Config.prototype.get = function(key, defaultValue)
 {
-    if (typeof defaultValue === 'undefined') {
-        defaultValue = '';
-    }
-
-    var obj = this;
-    var comps = key.split(".");
-    for(var index in comps) {
-        if (typeof obj[comps[index]] === 'undefined') {
-            return defaultValue;
+    return _.reduce(key.split("."), function(result, partOfKey) {
+        if (result[partOfKey]) {
+            return result[partOfKey];
+        } else {
+            return typeof defaultValue == 'undefined' ? defaultValue : '';
         }
-        obj = obj[comps[index]];
-    }
-    return obj;
+    }, this);
 }
 
 /*
@@ -81,16 +84,17 @@ Config.prototype.get = function(key, defaultValue)
  */
 Config.prototype.set = function(key, value)
 {
-    var comps = key.split('.');
-    var obj = this;
-    for(var index in comps) {
-        if (typeof obj[comps[index]] === 'undefined') {
-            obj[comps[index]] = (comps.length-1 == index)?value:{};
-        } else if (comps.length-1 == index) {
-            obj[comps[index]] = value;
+    var keyParts = key.split(".");
+    var baseKey = keyParts.pop();
+
+    var root = _.reduce(keyParts, function(result, partOfKey) {
+        if (typeof result[partOfKey] == 'undefined') {
+            result[partOfKey] = {};
         }
-        obj = obj[comps[index]];
-    }
+        return result[partOfKey];
+    }, this);
+
+    root[baseKey] = value;
 }
 
 
