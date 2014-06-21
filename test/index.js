@@ -27,6 +27,12 @@ describe('config/index', function() {
         });
     });
 
+    describe('#get - without key and default value', function() {
+        it('should return an empty string', function() {
+            assert.equal('', config.get('notavariable'));
+        });
+    });
+
     describe('#loadConfig', function() {
         it('should tell user file does not exist', function() {
             config.loadConfig('');
