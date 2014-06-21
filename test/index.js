@@ -23,20 +23,21 @@ describe('config/index', function() {
 
     describe('#set - without a key', function() {
         it('should not set a value', function() {
-            config.set('', 'test');
-            assert.equal('', config.get(''));
+            config.set(false, 'test');
+            assert.equal('undefined', typeof config.get(false));
+        });
+    });
+
+    describe('#set - with falsey values', function() {
+        it('should store the values', function() {
+            config.set('test.key', false);
+            assert.equal(false, config.get('test.key'));
         });
     });
 
     describe('#get - with default value', function() {
         it('should return default value', function() {
             assert.equal('test', config.get('notavariable', 'test'));
-        });
-    });
-
-    describe('#get - without a key', function() {
-        it('should return an empty string', function() {
-            assert.equal('', config.get('notavariable'));
         });
     });
 
