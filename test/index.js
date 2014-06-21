@@ -24,7 +24,7 @@ describe('config/index', function() {
     describe('#set - without a key', function() {
         it('should not set a value', function() {
             config.set(false, 'test');
-            assert.equal('undefined', typeof config.get(false));
+            assert.equal('', config.get(false));
         });
     });
 

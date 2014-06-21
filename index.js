@@ -4,7 +4,7 @@
 var _ = require('underscore');
 
 var Config = function() {
-
+    this.DEFAULT_VALUE = '';
 }
 
 /**
@@ -39,6 +39,7 @@ Config.prototype.loadSingleConfigFile = function(filename)
     } catch(e) {
         console.log('There was an error loading file: ' + filename, e);
     }
+    return {};
 }
 
 /**
@@ -60,22 +61,24 @@ Config.prototype.connectDatabase = function(databaseSetup)
 /**
  * This allows you to drill into the object safely,
  * use a dot to drill into the next object
- * @since 0.0.1
- * @access public
+ * @since   0.0.1
+ * @access  public
  * @returns object
 */
 Config.prototype.get = function(key, defaultValue)
 {
+    defaultValue = typeof defaultValue != 'undefiend' ? defaultValue : this.DEFAULT_VALUE;
+
     if (!this.isKeyFullString(key)) {
         console.log('Cannot get value. "key" must be of type of string and non-empty');
-        return;
+        return defaultValue;
     }
 
     return _.reduce(key.split("."), function(result, partOfKey) {
         if (result[partOfKey]) {
             return result[partOfKey];
         } else {
-            return typeof defaultValue != 'undefined' ? defaultValue : '';
+            return defaultValue;
         }
     }, this);
 }
@@ -97,14 +100,14 @@ Config.prototype.set = function(key, value)
     var keyParts = key.split(".");
     var baseKey = keyParts.pop();
 
-    var root = _.reduce(keyParts, function(result, partOfKey) {
+    var parentDataObject = _.reduce(keyParts, function(result, partOfKey) {
         if (typeof result[partOfKey] == 'undefined') {
             result[partOfKey] = {};
         }
         return result[partOfKey];
     }, this);
 
-    root[baseKey] = value;
+    parentDataObject[baseKey] = value;
 }
 
 /**
