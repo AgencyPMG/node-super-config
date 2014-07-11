@@ -70,7 +70,7 @@ Config.prototype.get = function(key, defaultValue)
     defaultValue = typeof defaultValue != 'undefined' ? defaultValue : this.DEFAULT_VALUE;
 
     if (!this.isKeyFullString(key)) {
-        console.log('Cannot get value. "key" must be of type of string and non-empty');
+        console.log('Cannot get value. "key" must be of type string');
         return defaultValue;
     }
 
@@ -93,7 +93,7 @@ Config.prototype.get = function(key, defaultValue)
 Config.prototype.set = function(key, value)
 {
     if (!this.isKeyFullString(key)) {
-        console.log('Cannot set value. "key" must be of type of string and non-empty');
+        console.log('Cannot set value. "key" must be of type string');
         return;
     }
 
