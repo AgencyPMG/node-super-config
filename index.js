@@ -4,7 +4,7 @@
 var _ = require('underscore');
 
 var Config = function() {
-
+    this.DEFAULT_VALUE = '';
 }
 
 /**
@@ -18,18 +18,28 @@ Config.prototype.loadConfig = function(configFiles) {
     }
 
     var config = {};
-    for(var i=0; i<configFiles.length;i++) {
-        try {
-            var local = require(configFiles[i]);
-            config = _.extend(config, local);
-        } catch(e) {
-            console.log('There was an error loading file: ' + configFiles[i], e);
-        }
+    for (var index in configFiles) {
+        config = _.extend(config, this.loadSingleConfigFile(configFiles[index]));
     }
 
     for(var key in config) {
         this.set(key, config[key]);
     }
+}
+
+/**
+ * Loads a given configuration file and returns an object
+ * representing that file
+ * @param filename {string} the file to load
+ */
+Config.prototype.loadSingleConfigFile = function(filename)
+{
+    try {
+        return require(filename);
+    } catch(e) {
+        console.log('There was an error loading file: ' + filename, e);
+    }
+    return {};
 }
 
 /**
@@ -51,28 +61,29 @@ Config.prototype.connectDatabase = function(databaseSetup)
 /**
  * This allows you to drill into the object safely,
  * use a dot to drill into the next object
- * @since 0.0.1
- * @access public
+ * @since   0.0.1
+ * @access  public
  * @returns object
 */
 Config.prototype.get = function(key, defaultValue)
 {
-    if (typeof defaultValue === 'undefined') {
-        defaultValue = '';
+    defaultValue = typeof defaultValue != 'undefined' ? defaultValue : this.DEFAULT_VALUE;
+
+    if (!this.isKeyFullString(key)) {
+        console.log('Cannot get value. "key" must be of type string');
+        return defaultValue;
     }
 
-    var obj = this;
-    var comps = key.split(".");
-    for(var index in comps) {
-        if (typeof obj[comps[index]] === 'undefined') {
+    return _.reduce(key.split("."), function(result, partOfKey) {
+        if (result[partOfKey]) {
+            return result[partOfKey];
+        } else {
             return defaultValue;
         }
-        obj = obj[comps[index]];
-    }
-    return obj;
+    }, this);
 }
 
-/*
+/**
  * This can set variables inside the config object
  * @todo implement the extend parameter
  * @since 0.0.1
@@ -81,18 +92,34 @@ Config.prototype.get = function(key, defaultValue)
  */
 Config.prototype.set = function(key, value)
 {
-    var comps = key.split('.');
-    var obj = this;
-    for(var index in comps) {
-        if (typeof obj[comps[index]] === 'undefined') {
-            obj[comps[index]] = (comps.length-1 == index)?value:{};
-        } else if (comps.length-1 == index) {
-            obj[comps[index]] = value;
-        }
-        obj = obj[comps[index]];
+    if (!this.isKeyFullString(key)) {
+        console.log('Cannot set value. "key" must be of type string');
+        return;
     }
+
+    var keyParts = key.split(".");
+    var baseKey = keyParts.pop();
+
+    var parentDataObject = _.reduce(keyParts, function(result, partOfKey) {
+        if (typeof result[partOfKey] == 'undefined') {
+            result[partOfKey] = {};
+        }
+        return result[partOfKey];
+    }, this);
+
+    parentDataObject[baseKey] = value;
 }
 
+/**
+ * Determines if a key is both a string and not empty
+ * @since  0.0.5
+ * @param  key {mixed}
+ * @return boolean true if the string is not empty; false otherwise
+ */
+Config.prototype.isKeyFullString = function(key)
+{
+    return typeof key == 'string' && '' !== key;
+}
 
 /* Creates a singleton instance */
 module.exports = new Config();
