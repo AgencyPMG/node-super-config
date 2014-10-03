@@ -4,7 +4,7 @@
   "description": "A light-weight config for Node",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover _mocha --report lcovonly --  && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "author": "Chris Alvares <chris.alvares@pmg.co>",
   "license": "MIT",
@@ -12,12 +12,10 @@
     "underscore": "^1.7.0"
   },
   "devDependencies": {
-    "karma": "latest",
-    "karma-mocha": "latest",
-    "karma-requirejs": "latest",
-    "chai": "latest",
-    "karma-chai": "latest",
-    "istanbul": "latest"
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.2",
+    "mocha": "^1.21.4",
+    "mocha-lcov-reporter": "0.0.1"
   },
   "repository": {
     "type": "git",
@@ -26,10 +24,5 @@
   "bugs": {
     "url": "https://github.com/AgencyPMG/node-super-config/issues"
   },
-  "homepage": "https://github.com/AgencyPMG/node-super-config",
-  "devDependencies": {
-    "coveralls": "^2.11.2",
-    "istanbul": "^0.3.2",
-    "mocha-lcov-reporter": "0.0.1"
-  }
+  "homepage": "https://github.com/AgencyPMG/node-super-config"
 }
