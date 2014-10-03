@@ -1,5 +1,7 @@
 Simple Node Config
 ===========
+[![Build Status](https://travis-ci.org/AgencyPMG/node-super-config.svg?branch=master)](https://travis-ci.org/AgencyPMG/node-super-config) [![Coverage Status](https://coveralls.io/repos/AgencyPMG/node-super-config/badge.png?branch=master)](https://coveralls.io/r/AgencyPMG/node-super-config?branch=master)
+
 
 This light-weight NodeJS package allows you to load your config files, as well as easily edit them with getters and setters. The files have to be in JSON format.
 
