@@ -8,6 +8,26 @@ var Config = function() {
 }
 
 /**
+ * Recursively copies all properties from source into destination - overwriting
+ * and adding as necessary.
+ * @param destination {object}
+ * @param source {object}
+ * @return {void}
+ */
+Config.prototype.deepCopy = function(destination, source) {
+    for (var p in source) {
+        if (typeof source[p] === 'object') {
+            if (!destination.hasOwnProperty(p)) {
+                destination[p] = {};
+            }
+            this.deepCopy(destination[p], source[p]);
+        } else {
+            destination[p] = source[p];
+        }
+    }
+}
+
+/**
  * Loads a config file or multiple files
  * @param configFiles {string|array}
  * @return {void}
@@ -107,7 +127,14 @@ Config.prototype.set = function(key, value)
         return result[partOfKey];
     }, this);
 
-    parentDataObject[baseKey] = value;
+    if (typeof parentDataObject[baseKey] === 'undefined') {
+        parentDataObject[baseKey] = {};
+    }
+    if (typeof value === 'object') {
+        this.deepCopy(parentDataObject[baseKey], value);
+    } else {
+        parentDataObject[baseKey] = value;
+    }
 }
 
 /**
