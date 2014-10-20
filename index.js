@@ -16,9 +16,6 @@ var Config = function() {
  */
 Config.prototype.deepCopy = function(destination, source) {
     for (var p in source) {
-        if (!source.hasOwnProperty(p)) {
-            continue;
-        }
         if (typeof source[p] === 'object') {
             if (!destination.hasOwnProperty(p)) {
                 destination[p] = {};
