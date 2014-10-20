@@ -59,6 +59,11 @@ describe('config/index', function() {
         it('should load file', function() {
             config.loadConfig([__dirname + '/config/config']);
         });
+
+		it('should keep child elements the same if not present', function() {
+			config.loadConfig([__dirname + '/config/subconfig']);
+			assert.equal(true, config.get('db.host', false) === '127.0.0.1');
+		});
     });
 
     describe('#connectDatabase', function() {
