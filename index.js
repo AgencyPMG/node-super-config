@@ -8,24 +8,24 @@ var Config = function() {
 }
 
 /**
- * Recursively copies all properties from src into dst - overwriting
+ * Recursively copies all properties from source into destination - overwriting
  * and adding as necessary.
- * @param dst {object}
- * @param src {object}
+ * @param destination {object}
+ * @param source {object}
  * @return {void}
  */
-var deepCopy = function(dst, src) {
-    for (var p in src) {
-        if (!src.hasOwnProperty(p)) {
+Config.prototype.deepCopy = function(destination, source) {
+    for (var p in source) {
+        if (!source.hasOwnProperty(p)) {
             continue;
         }
-        if (typeof src[p] === 'object') {
-            if (!dst.hasOwnProperty(p)) {
-                dst[p] = {};
+        if (typeof source[p] === 'object') {
+            if (!destination.hasOwnProperty(p)) {
+                destination[p] = {};
             }
-            deepCopy(dst[p], src[p]);
+            this.deepCopy(destination[p], source[p]);
         } else {
-            dst[p] = src[p];
+            destination[p] = source[p];
         }
     }
 }
@@ -134,7 +134,7 @@ Config.prototype.set = function(key, value)
         parentDataObject[baseKey] = {};
     }
     if (typeof value === 'object') {
-        deepCopy(parentDataObject[baseKey], value);
+        this.deepCopy(parentDataObject[baseKey], value);
     } else {
         parentDataObject[baseKey] = value;
     }
