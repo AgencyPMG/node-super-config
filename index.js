@@ -52,8 +52,7 @@ Config.prototype.loadConfig = function(configFiles) {
  * representing that file
  * @param filename {string} the file to load
  */
-Config.prototype.loadSingleConfigFile = function(filename)
-{
+Config.prototype.loadSingleConfigFile = function(filename) {
     try {
         return require(filename);
     } catch(e) {
@@ -67,8 +66,7 @@ Config.prototype.loadSingleConfigFile = function(filename)
  * @param databaseSetupFunction {function} a database setup that returns
  *        a connection or accepts a callback parameter
  */
-Config.prototype.connectDatabase = function(databaseSetup)
-{
+Config.prototype.connectDatabase = function(databaseSetup) {
     var callback = _.bind(function(error, database) {
         if (database) {
             this.set('db', database);
@@ -85,8 +83,7 @@ Config.prototype.connectDatabase = function(databaseSetup)
  * @access  public
  * @returns object
 */
-Config.prototype.get = function(key, defaultValue)
-{
+Config.prototype.get = function(key, defaultValue) {
     defaultValue = typeof defaultValue != 'undefined' ? defaultValue : this.DEFAULT_VALUE;
 
     if (!this.isKeyFullString(key)) {
@@ -110,8 +107,7 @@ Config.prototype.get = function(key, defaultValue)
  * @access public
  * returns void
  */
-Config.prototype.set = function(key, value)
-{
+Config.prototype.set = function(key, value) {
     if (!this.isKeyFullString(key)) {
         console.log('Cannot set value. "key" must be of type string');
         return;
@@ -143,8 +139,7 @@ Config.prototype.set = function(key, value)
  * @param  key {mixed}
  * @return boolean true if the string is not empty; false otherwise
  */
-Config.prototype.isKeyFullString = function(key)
-{
+Config.prototype.isKeyFullString = function(key) {
     return typeof key == 'string' && '' !== key;
 }
 

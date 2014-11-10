@@ -8,9 +8,9 @@ This light-weight NodeJS package allows you to load your config files, as well a
 ##Examples
 
 ###Loading Config Files
-Store the `simple-config` class in a variable and load as many configuration files as you have.
+Store the `super-config` class in a variable and load as many configuration files as you have.
 ```
-var config = require('simple-config');
+var config = require('super-config');
 
 config.loadConfig([
     __dirname + '/app/config/config',
@@ -33,7 +33,7 @@ module.exports = {
 ```
 
 ###Getting Information
-Let's pretend we our config file contains this section of code:
+Let's pretend our config file contains this section of code:
 ```js
 database: {
     host:'127.0.0.1',
