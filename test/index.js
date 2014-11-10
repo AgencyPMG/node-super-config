@@ -63,7 +63,7 @@ describe('config/index', function() {
 
         it('should keep child elements the same if not present', function() {
             config.loadConfig([__dirname + '/config/subconfig']);
-            assert.equal(true, config.get('db.host', false) === '127.0.0.1');
+            assert.equal(config.get('db.host', false), '127.0.0.1');
         });
     });
 
@@ -80,18 +80,18 @@ describe('config/index', function() {
             var destination = {one: 'one'};
             var source = {two: 'two'};
             config.deepCopy(destination, source);
-            assert.equal(true, _.size(destination) === 2);
-            assert.equal(true, destination.one === 'one');
-            assert.equal(true, destination.two === 'two');
+            assert.equal(_.size(destination), 2);
+            assert.equal(destination.one, 'one');
+            assert.equal(destination.two, 'two');
         });
 
         it('should overwrite and copy all properties from source', function() {
             var destination = {one: 'one'};
             var source = {one: 'one from source', two: 'two from source'};
             config.deepCopy(destination, source);
-            assert.equal(true, _.size(destination) === 2);
-            assert.equal(true, destination.one === 'one from source');
-            assert.equal(true, destination.two === 'two from source');
+            assert.equal(_.size(destination), 2);
+            assert.equal(destination.one, 'one from source');
+            assert.equal(destination.two, 'two from source');
         });
         
         it('should operate recursively', function() {
@@ -101,12 +101,12 @@ describe('config/index', function() {
                 sub: {three: 'three from source', subtwo: {five: 'five from source'}},
                 subthree: {six: 'six'}};
             config.deepCopy(destination, source);
-            assert.equal(true, destination.one === 'one from source');
-            assert.equal(true, destination.two === 'two');
-            assert.equal(true, destination.sub.three === 'three from source');
-            assert.equal(true, destination.sub.four === 'four');
-            assert.equal(true, destination.sub.subtwo.five === 'five from source');
-            assert.equal(true, destination.subthree.six === 'six');
+            assert.equal(destination.one, 'one from source');
+            assert.equal(destination.two, 'two');
+            assert.equal(destination.sub.three, 'three from source');
+            assert.equal(destination.sub.four, 'four');
+            assert.equal(destination.sub.subtwo.five, 'five from source');
+            assert.equal(destination.subthree.six, 'six');
         });
     });
 
