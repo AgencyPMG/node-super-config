@@ -14,13 +14,17 @@ var Config = function() {
  * @param source {object}
  * @return {void}
  */
-Config.prototype.deepCopy = function(destination, source) {
+Config.prototype.deepCopy = function(destination, source, seen) {
+    seen = seen || [];
+    seen.push(source);
     for (var p in source) {
         if (typeof source[p] === 'object') {
             if (!destination.hasOwnProperty(p)) {
                 destination[p] = {};
             }
-            this.deepCopy(destination[p], source[p]);
+            if (seen.indexOf(source[p]) === -1) { //have not yet traversed to source[p]
+                this.deepCopy(destination[p], source[p], seen);
+            }
         } else {
             destination[p] = source[p];
         }
