@@ -108,6 +108,31 @@ describe('config/index', function() {
             assert.equal(destination.sub.subtwo.five, 'five from source');
             assert.equal(destination.subthree.six, 'six');
         });
+        
+        it('should copy all other properties aside from circular references', function() {
+            var destination = {one: 'one', two: 'two'};
+            var source = {one: 'one from source'};
+            source.self = source;
+            config.deepCopy(destination, source);
+            assert.strictEqual(destination.one, 'one from source');
+            assert.strictEqual(destination.two, 'two');
+        });
+
+        it('should not recurse into circular references', function() {
+            var destination = {one: 'one', two: 'two',
+                sub: {three: 'three', four: 'four', subtwo: {five: 'five'}}};
+            var source = {one: 'one from source',
+                sub: {three: 'three from source', subtwo: {five: 'five from source'}},
+                subthree: {six: 'six'}};
+            source.subthree.circle = source;
+            config.deepCopy(destination, source);
+            assert.equal(destination.one, 'one from source');
+            assert.equal(destination.two, 'two');
+            assert.equal(destination.sub.three, 'three from source');
+            assert.equal(destination.sub.four, 'four');
+            assert.equal(destination.sub.subtwo.five, 'five from source');
+            assert.equal(destination.subthree.six, 'six');
+        });
     });
 
     describe('#connectDatabase', function() {
