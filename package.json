@@ -1,6 +1,6 @@
 {
   "name": "super-config",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A light-weight config for Node",
   "main": "index.js",
   "scripts": {
