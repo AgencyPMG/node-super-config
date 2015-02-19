@@ -18,7 +18,7 @@ Config.prototype.deepCopy = function(destination, source, seen) {
     seen = seen || [];
     seen.push(source);
     for (var p in source) {
-        if (typeof source[p] === 'object') {
+        if (typeof source[p] === 'object' && !(source[p] instanceof Array)) {
             if (!destination.hasOwnProperty(p)) {
                 destination[p] = {};
             }
@@ -130,7 +130,7 @@ Config.prototype.set = function(key, value) {
     if (typeof parentDataObject[baseKey] === 'undefined') {
         parentDataObject[baseKey] = {};
     }
-    if (typeof value === 'object') {
+    if (typeof value === 'object'  && !(value instanceof Array)) {
         this.deepCopy(parentDataObject[baseKey], value);
     } else {
         parentDataObject[baseKey] = value;
